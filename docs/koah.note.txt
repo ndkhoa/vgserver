@@ -1,0 +1,28 @@
+Cài đặt Vagrant & VirtualBox trên Windows 10
+https://www.youtube.com/watch?v=WNsso7zsUHE
+
+Sử dụng Vagrant cài đặt Ubuntu Server
+https://www.youtube.com/watch?v=9exu9NHMtNw&list=PLzsF36Xh2Cq1HQIdocIqcZHxuobqqik2L&index=2
+
+Hướng dẫn tạo máy ảo với Vagrant + VirtualBox
+https://www.youtube.com/watch?v=s30E7ssEQWI
+================================================================================
+================================================================================
+https://thachpham.com/tools/tao-may-ao-tren-may-tinh-voi-vagrant-va-virtualbox.html
+https://viblo.asia/p/phan-1-tim-hieu-ve-ansible-4dbZNxv85YM
+================================================================================
+================================================================================
+$ git add .
+warning: LF will be replaced by CRLF in README.md.
+The file will have its original line endings in your working directory.
+
+https://stackoverflow.com/questions/17628305/windows-git-warning-lf-will-be-replaced-by-crlf-is-that-warning-tail-backwar/17628353
+git config --global core.autocrlf false
+================================================================================
+================================================================================
+mkdir vgserver
+cd vgserver
+https://app.vagrantup.com/ubuntu/boxes/xenial64
+vagrant box add ubuntu/xenial64
+vagrant init ubuntu/xenial64
+vagrant up
