@@ -6,12 +6,6 @@ https://www.youtube.com/watch?v=9exu9NHMtNw&list=PLzsF36Xh2Cq1HQIdocIqcZHxuobqqi
 
 CÀI ĐẶT UBUNTU SERVER VỚI VAGRANT
 https://sonnguyen.ws/vi/cai-dat-ubuntu-server-voi-vagrant/
-================================================================================
-================================================================================
-Hướng dẫn tạo máy ảo với Vagrant + VirtualBox
-https://www.youtube.com/watch?v=s30E7ssEQWI
-
-https://thachpham.com/tools/tao-may-ao-tren-may-tinh-voi-vagrant-va-virtualbox.html
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
   #config.vm.synced_folder "./", "/build/"
@@ -32,6 +26,27 @@ Vagrant.configure(2) do |config|
 end
 ================================================================================
 ================================================================================
+Hướng dẫn tạo máy ảo với Vagrant + VirtualBox
+https://www.youtube.com/watch?v=s30E7ssEQWI
+
+https://thachpham.com/tools/tao-may-ao-tren-may-tinh-voi-vagrant-va-virtualbox.html
+Một số lệnh Vagrant cơ bản cần thiết
+Trong khi dùng Vagrant, có thể bạn sẽ sử dụng rất nhiều một số lệnh dưới đây nên tốt nhất là hãy nhớ chức năng của nó:
+vagrant box add – Nạp box.
+vagrant box list – Xem danh sách các box.
+vagrant box remove NAME
+
+vagrant up
+vagrant suspend – Cho máy ảo tạm nghỉ.
+vagrant halt – Cho máy ảo đi ngủ, shutdown đó.
+vagrant destroy – Cho máy ảo về vườn.
+vagrant reload – Tải lại các thiết lập trong file Vagrantfile của máy ảo, khi đổi nội dung file đó, sử dụng lệnh reload này để nạp lại cấu hình.
+
+vagrant ssh
+vagrant login – Đăng nhập vào hệ thống Vagrant Cloud.
+vagrant share --ssh: Chia sẻ máy ảo của bạn cho người khác truy cập, bạn phải gõ lệnh vagrant login trước khi dùng tính năng này.
+================================================================================
+================================================================================
 $ git add .
 warning: LF will be replaced by CRLF in README.md.
 The file will have its original line endings in your working directory.
@@ -40,12 +55,37 @@ https://stackoverflow.com/questions/17628305/windows-git-warning-lf-will-be-repl
 git config --global core.autocrlf false
 ================================================================================
 ================================================================================
+https://viblo.asia/p/buoc-dau-lam-quen-voi-vagrant-1VgZvxaM5Aw
+config.vm.network "forwarded_port", guest: 3000, host: 8084
+================================================================================
+================================================================================
+https://viblo.asia/p/su-dung-nginx-lam-load-balancer-cho-nhieu-backend-server-gDVK2aJ25Lj
+================================================================================
+================================================================================
 Nginx Load Balancer Setup
 https://www.youtube.com/watch?v=XdHrywooTi0
+========================================
+========================================
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = "server02"
+  config.vm.network "public_network", ip: "192.168.1.102"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+end
 ================================================================================
 ================================================================================
 mkdir vgserver
 cd vgserver
+====================
+====================
+https://app.vagrantup.com/ubuntu/boxes/trusty64
+vagrant box add ubuntu/trusty64
+vagrant init ubuntu/trusty64
+====================
+====================
 https://app.vagrantup.com/ubuntu/boxes/xenial64
 vagrant box add ubuntu/xenial64
 vagrant init ubuntu/xenial64
@@ -60,7 +100,7 @@ HOST_NAME = "loadbalancer"
 HOST_IP = "192.168.1.200"
 
 Vagrant.configure(VAGRANTFILE_API_VESION) do |config|
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = HOST_NAME
   config.vm.network "public_network", ip: HOST_IP
 
@@ -78,6 +118,193 @@ mkdir server02
 ========================================
 ========================================
 vagrant up
-========================================
-========================================
+vagrant status
+vagrant ssh
+user: vagrant
+password: vagrant
+====================
+====================
+How to Set up Virtual Box and Vagrant on Windows
+https://www.youtube.com/watch?v=mPBWWu7sZU4
+vagrant ssh-config
+Host default
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile D:/Vagrant/loadbalancer/.vagrant/machines/default/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
 
+ssh vagrant@127.0.0.1 -p 2222 -i D:/Vagrant/loadbalancer/.vagrant/machines/default/virtualbox/private_key
+Permission denied (publickey).
+It is happen on Ubuntu 16.04 LTS (Xenial Xerus) ubuntu/xenial64
+Using ubuntu/trusty64 instead of ubuntu/xenial64
+
+vagrant halt
+vagrant destroy
+====================
+====================
+ping
+sudo apt-get update
+========================================
+========================================
+loadbalancer
+sudo apt-get install -y nginx
+====================
+====================
+server01
+server02
+sudo apt-get install -y nodejs npm
+====================
+====================
+loadbalancer
+ls -al /etc/nginx/nginx.conf
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup
+sudo vim /etc/nginx/nginx.conf
+worker_processes 1;
+events {
+  worker_connections 1024;
+}
+
+http {
+  upstream servers {
+    server 192.168.1.101:8081;
+    server 192.168.1.102:8082;
+  }
+
+  server {
+    listen 8080;
+
+    location / {
+      proxy_pass http://servers;
+    }
+  }
+}
+
+sudo cat /etc/nginx/nginx.conf
+sudo service nginx restart
+==========
+==========
+https://codeyarns.com/2011/04/18/how-to-delete-all-lines-of-file-in-vim/
+https://stackoverflow.com/questions/11828270/how-to-exit-the-vim-editor
+Type gg to move the cursor to the first line of the file, if it is not already there.
+Type dG to delete all the lines.
+:wq to write and quit
+gg
+dG
+Esc > :wq
+====================
+====================
+server01
+server02
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install -g http-server
+==========
+==========
+npm http GET https://registry.npmjs.org/http-server
+npm http GET https://registry.npmjs.org/http-server
+npm http GET https://registry.npmjs.org/http-server
+npm ERR! Error: CERT_UNTRUSTED
+npm ERR!     at SecurePair.<anonymous> (tls.js:1370:32)
+npm ERR!     at SecurePair.EventEmitter.emit (events.js:92:17)
+npm ERR!     at SecurePair.maybeInitFinished (tls.js:982:10)
+npm ERR!     at CleartextStream.read [as _read] (tls.js:469:13)
+npm ERR!     at CleartextStream.Readable.read (_stream_readable.js:320:10)
+npm ERR!     at EncryptedStream.write [as _write] (tls.js:366:25)
+npm ERR!     at doWrite (_stream_writable.js:223:10)
+npm ERR!     at writeOrBuffer (_stream_writable.js:213:5)
+npm ERR!     at EncryptedStream.Writable.write (_stream_writable.js:180:11)
+npm ERR!     at write (_stream_readable.js:583:24)
+npm ERR! If you need help, you may report this log at:
+npm ERR!     <http://github.com/isaacs/npm/issues>
+npm ERR! or email it to:
+npm ERR!     <npm-@googlegroups.com>
+
+npm ERR! System Linux 3.13.0-144-generic
+npm ERR! command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "http-server"
+npm ERR! cwd /home/vagrant
+npm ERR! node -v v0.10.25
+npm ERR! npm -v 1.3.10
+npm ERR!
+npm ERR! Additional logging details can be found in:
+npm ERR!     /home/vagrant/npm-debug.log
+npm ERR! not ok code 0
+
+https://github.com/npm/npm/issues/20203
+before_install:
+  - "npm config set strict-ssl false"
+
+sudo npm config set strict-ssl false
+sudo npm install -g http-server
+==========
+==========
+ls -al /vagrant/www
+cd /vagrant/www
+ls
+index.html
+sudo http-server -p 80
+==========
+==========
+sudo http-server -p 80
+/usr/local/lib/node_modules/http-server/node_modules/ecstatic/lib/ecstatic.js:5
+const path = require('path');
+^^^^^
+SyntaxError: Use of const in strict mode.
+    at Module._compile (module.js:439:25)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+    at Module.require (module.js:364:17)
+    at require (module.js:380:17)
+    at Object.<anonymous> (/usr/local/lib/node_modules/http-server/lib/http-server.js:5:16)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+
+sudo npm uninstall -g http-server
+sudo rm -rf /usr/bin/node
+sudo apt-get remove --purge nodejs npm
+====================
+====================
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.9/install.sh | bash
+source ~/.bashrc
+nvm --version
+nvm install 9.11.1
+node -v
+npm -v
+npm install -g http-server
+http-server -p 80
+==========
+==========
+http-server -p 80
+events.js:165
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EACCES 0.0.0.0:80
+    at Server.setupListenHandle [as _listen2] (net.js:1329:19)
+    at listenInCluster (net.js:1387:12)
+    at doListen (net.js:1502:7)
+    at process._tickCallback (internal/process/next_tick.js:178:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:697:11)
+    at startup (internal/bootstrap/node.js:201:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:516:3)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1366:8)
+    at process._tickCallback (internal/process/next_tick.js:178:19)
+    [... lines matching original stack trace ...]
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:516:3)
+
+http-server -p 8080
+====================
+====================
+curl 192.168.1.101
+curl 192.168.1.102
+curl 192.168.1.100
+curl 192.168.1.100
+curl 192.168.1.100
+========================================
+========================================
