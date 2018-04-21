@@ -4,12 +4,32 @@ https://www.youtube.com/watch?v=WNsso7zsUHE
 Sử dụng Vagrant cài đặt Ubuntu Server
 https://www.youtube.com/watch?v=9exu9NHMtNw&list=PLzsF36Xh2Cq1HQIdocIqcZHxuobqqik2L&index=2
 
+CÀI ĐẶT UBUNTU SERVER VỚI VAGRANT
+https://sonnguyen.ws/vi/cai-dat-ubuntu-server-voi-vagrant/
+================================================================================
+================================================================================
 Hướng dẫn tạo máy ảo với Vagrant + VirtualBox
 https://www.youtube.com/watch?v=s30E7ssEQWI
-================================================================================
-================================================================================
+
 https://thachpham.com/tools/tao-may-ao-tren-may-tinh-voi-vagrant-va-virtualbox.html
-https://viblo.asia/p/phan-1-tim-hieu-ve-ansible-4dbZNxv85YM
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  #config.vm.synced_folder "./", "/build/"
+  config.vm.hostname = "dev-server"
+  config.vm.network "private_network", ip: "172.20.20.20"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.memory = 2048
+    vb.cpus = 1
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo apt-get update
+     sudo apt-get install -y whois git
+     sudo useradd -m -p `mkpasswd password` -s /bin/bash dev
+     sudo usermod -a -G sudo dev
+  SHELL
+end
 ================================================================================
 ================================================================================
 $ git add .
@@ -20,9 +40,19 @@ https://stackoverflow.com/questions/17628305/windows-git-warning-lf-will-be-repl
 git config --global core.autocrlf false
 ================================================================================
 ================================================================================
+Nginx Load Balancer Setup
+https://www.youtube.com/watch?v=XdHrywooTi0
+================================================================================
+================================================================================
 mkdir vgserver
 cd vgserver
 https://app.vagrantup.com/ubuntu/boxes/xenial64
 vagrant box add ubuntu/xenial64
 vagrant init ubuntu/xenial64
+========================================
+========================================
+Vagrantfile
+
+========================================
+========================================
 vagrant up
