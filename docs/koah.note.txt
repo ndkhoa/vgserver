@@ -308,3 +308,137 @@ curl 192.168.1.100
 curl 192.168.1.100
 ========================================
 ========================================
+================================================================================
+================================================================================
+NOTOK
+vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'ubuntu/trusty64'...
+==> default: Matching MAC address for NAT networking...
+==> default: Checking if box 'ubuntu/trusty64' is up to date...
+==> default: Setting the name of the VM: server02_default_1524390197913_8514
+==> default: Clearing any previously set forwarded ports...
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+    default: Adapter 2: bridged
+==> default: Forwarding ports...
+    default: 8082 (guest) => 8082 (host) (adapter 1)
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: password
+    default:
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest if its present...
+    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+========================================
+========================================
+OK
+vagrant reload
+==> default: Checking if box 'ubuntu/trusty64' is up to date...
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+    default: Adapter 2: bridged
+==> default: Forwarding ports...
+    default: 8082 (guest) => 8082 (host) (adapter 1)
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: password
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default:
+    default: Guest Additions Version: 4.3.36
+    default: VirtualBox Version: 5.2
+==> default: Setting hostname...
+==> default: Configuring and enabling network interfaces...
+==> default: Mounting shared folders...
+    default: /vagrant => D:/Vagrant/server02
+==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> default: flag to force provisioning. Provisioners marked to run always will still run.
+========================================
+========================================
+Vagrantfile
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = "server02"
+  config.vm.network :public_network, ip: "192.168.1.102"
+  config.ssh.password = "vagrant"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 512
+    vb.cpus = 1
+  end
+end
+====================
+====================
+vagrant ssh-config
+Host default
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile C:/Users/User/.ssh/id_rsa
+  IdentitiesOnly yes
+  LogLevel FATAL
+====================
+====================
+ssh vagrant@127.0.0.1 -p 2222 -i D:/Vagrant/server02/.vagrant/machines/default/virtualbox/private_key
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:Ppuu2rwAgNRgYbkHSH9hzsrGEkp4pIl0MgDnStxZCbQ.
+Please contact your system administrator.
+Add correct host key in /c/Users/User/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /c/Users/User/.ssh/known_hosts:6
+ECDSA host key for [127.0.0.1]:2222 has changed and you have requested strict checking.
+Host key verification failed.
+====================
+====================
+rm -f /c/Users/User/.ssh/known_hosts
+cp /c/Users/User/.ssh/id_rsa D:/Vagrant/server02/.vagrant/machines/default/virtualbox/private_key
+cp: cannot create regular file 'D:/Vagrant/server02/.vagrant/machines/default/virtualbox/private_key': Permission denied
+
+Properties > Security > Edit > Add
+users > Check names > OK
+Allow: Full control
+====================
+====================
+ssh vagrant@127.0.0.1 -p 2222 -i D:/Vagrant/server02/.vagrant/machines/default/virtualbox/private_key
+The authenticity of host '[127.0.0.1]:2222 ([127.0.0.1]:2222)' cant be established.
+ECDSA key fingerprint is SHA256:Ppuu2rwAgNRgYbkHSH9hzsrGEkp4pIl0MgDnStxZCbQ.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '[127.0.0.1]:2222' (ECDSA) to the list of known hosts.
+Load key "D:/Vagrant/server02/.vagrant/machines/default/virtualbox/private_key": Permission denied
+vagrant@127.0.0.1s password:
+Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 3.13.0-144-generic x86_64)
+================================================================================
+================================================================================
