@@ -1,12 +1,6 @@
 https://kipalog.com/posts/Cau-hinh-nginx-co-ban---Phan-5
 ================================================================================
 ================================================================================
-http://echip.com.vn/xay-dung-mang-ao--phan-1-mang-may-tinh-ao-tiep-theo-a20130406071049381-c1110.html
-Use bridged connection: cho phép card mạng máy ảo kết nối trực tiếp với card mạng máy thật, giống như khi chúng được kết nối vào chung một switch. Khi đó, địa chỉ IP của máy ảo phải nằm cùng subnet với địa chỉ IP mà card mạng máy thật đang dùng. Đây là lựa chọn thường được sử dụng nhiều nhất khi tạo một mạng máy tính ảo.
-Use network address translation (NAT): máy ảo sẽ nằm ở một vùng địa chỉ IP khác và phải thực hiện việc kỹ thuật chuyển đổi địa chỉ (NAT) khi liên lạc với máy tính bên ngoài.
-Use host-only networking: máy tính ảo sẽ kết nối với máy tính thật bằng một vùng mạng riêng, nhưng không liên lạc được với bên ngoài.
-================================================================================
-================================================================================
 https://viblo.asia/p/buoc-dau-lam-quen-voi-vagrant-1VgZvxaM5Aw
 load balance với nginx
 upstream rails_lb {
@@ -284,6 +278,30 @@ curl 192.168.1.100:8080
 ================================================================================
 ================================================================================
 http://www.thisprogrammingthing.com/2015/multiple-vagrant-vms-in-one-vagrantfile/
+================================================================================
+================================================================================
+https://stackoverflow.com/questions/45995530/manpath-cant-set-the-locale-make-sure-lc-and-lang-are-correct
+https://gist.github.com/SimonSun1988/2ef7db45e46b889783647d941ec15e4d
+
+manpath: can't set the locale; make sure $LC_* and $LANG are correct
+========================================
+========================================
+sudo locale-gen "en_US.UTF-8"
+sudo dpkg-reconfigure locales
+sudo vim /etc/default/locale
+a
+LC_ALL="en_US.UTF-8"
+Esc
+:wq
+sudo cat /etc/default/locale
+exit
+vagrant reload
+================================================================================
+================================================================================
+http://echip.com.vn/xay-dung-mang-ao--phan-1-mang-may-tinh-ao-tiep-theo-a20130406071049381-c1110.html
+Use bridged connection: cho phép card mạng máy ảo kết nối trực tiếp với card mạng máy thật, giống như khi chúng được kết nối vào chung một switch. Khi đó, địa chỉ IP của máy ảo phải nằm cùng subnet với địa chỉ IP mà card mạng máy thật đang dùng. Đây là lựa chọn thường được sử dụng nhiều nhất khi tạo một mạng máy tính ảo.
+Use network address translation (NAT): máy ảo sẽ nằm ở một vùng địa chỉ IP khác và phải thực hiện việc kỹ thuật chuyển đổi địa chỉ (NAT) khi liên lạc với máy tính bên ngoài.
+Use host-only networking: máy tính ảo sẽ kết nối với máy tính thật bằng một vùng mạng riêng, nhưng không liên lạc được với bên ngoài.
 ================================================================================
 ================================================================================
 Cài đặt Vagrant & VirtualBox trên Windows 10
