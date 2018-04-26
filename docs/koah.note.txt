@@ -282,6 +282,11 @@ curl 192.168.1.100:8080
 ================================================================================
 ================================================================================
 http://www.thisprogrammingthing.com/2015/multiple-vagrant-vms-in-one-vagrantfile/
+vagrant up
+vagrant status
+vagrant ssh db
+vagrant halt db
+vagrant destroy db
 ================================================================================
 ================================================================================
 https://stackoverflow.com/questions/45995530/manpath-cant-set-the-locale-make-sure-lc-and-lang-are-correct
